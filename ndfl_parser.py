@@ -40,6 +40,9 @@ def parse_one_table(table, balance):
     previous_code = ''
     for line in table.df.itertuples():
         if line[0] == 0:
+            column_name=line[2].replace('\n', ' ').lower().split()
+            if [column_name[0], column_name[1]] != ['код', 'дохода']:
+                break
             continue
         code = line[2] if line[2] != '' else previous_code
         balance[code] = balance.get(code, 0) + get_row_balance(line, 3, 5)
@@ -54,7 +57,7 @@ def parse_one_table(table, balance):
 def parse_pdf(file):
     balance = {}
     abc = camelot.read_pdf(file)
-    for i in range(0, len(abc)-1):
+    for i in range(0, len(abc)):
         balance = parse_one_table(abc[i], balance)
     return balance
 
