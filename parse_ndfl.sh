@@ -1,2 +1,3 @@
 #!/bin/bash
-IFS=$'\n'; for file  in $(ls ~/Documents/Trading/BCS/*2-ндфл*.pdf); do echo $file;  python ndfl_parser.py -f  "$file"; done
+SOURCE_FILES_MASK=~/Documents/Trading/BCS/*2-ндфл*.pdf
+IFS=$'\n'; for file  in $(ls $SOURCE_FILES_MASK); do echo $file;  python ndfl_parser.py -f  "$file"; done
